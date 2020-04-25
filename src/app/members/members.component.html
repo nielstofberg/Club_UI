@@ -1,0 +1,143 @@
+
+
+<!-- List all Members -->
+<div *ngIf="(selectedMemberId < 0)" class="group" >
+    <div style="float:left; padding: 10px;">
+        <label>Members</label>
+    </div>
+    <button (click)=newMember()>New</button>
+    <table  class=datagrid>
+        <thead class=datagrid>
+            <tr>
+                <th>Member<br/>Number</th><th>Membership</th><th>Name</th><th>Surname</th><th>Email</th><th>Mobile</th><th>Postcode</th><th>DOB</th><th></th>
+            </tr>  
+        </thead>
+        <tbody class="datagrid">
+            <tr *ngFor="let member of members" class="datagrid">
+                <td>{{member.memberNo}}</td>
+                <td>{{member.memberType.description}}</td>
+                <td>{{member.firstName}}</td>
+                <td>{{member.surname}}</td>
+                <td>{{member.email}}</td>
+                <td>{{member.phoneMobile}}</td>
+                <td>{{member.postCode}}</td>
+                <td>{{member.birthday | date:'yyyy-MM-dd'}}</td>
+                <td><button (click)="memberSelected(member)" >Select</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="selectedMemberId >= 0">
+    <form [formGroup]="memberForm" (ngSubmit)="onMemberFormSubmit()">
+        <div class="group">
+            <label>
+                ID
+                <input type="number" class="number" readonly placeholder="ID" formControlName="memberId" />
+            </label>
+            <label>
+                Member Number<input type="number" class="number" placeholder="Member No" formControlName="memberNo" />
+            </label>
+            <label>
+                Member Type
+                <select placeholder="Select" formControlName="memberTypeId" >
+                    <option *ngFor="let ut of memberTypes" value="{{ut.memberTypeId}}" >{{ut.description}}</option>
+                </select>
+            </label>
+            <label>
+                Pin
+                <input type="password" class="number" placeholder="Pin" formControlName="pin" />
+            </label>
+        </div>
+        <div class="group">
+            <label>
+                Name
+                <input type="text" placeholder="Name" formControlName="firstName" />
+            </label><label>
+                Middle Name
+                <input type="text" placeholder="Middle Name" formControlName="middleName" />
+            </label><label>
+                Surname
+                <input type="text" placeholder="Surname" formControlName="surname" />
+            </label>
+        </div>
+        <div class="group">
+            <label>
+                Date of Birth
+                <input type="date" placeholder="DOB" formControlName="birthday" />
+            </label>
+            <label>
+                Gender
+                <select placeholder="Gender" formControlName="gender" >
+                    <option>Female</option>
+                    <option>Male</option>
+                </select>
+            </label><label>
+                Image URL
+                <input type="text" placeholder="Picture" formControlName="picture" />
+            </label>
+        </div>
+        <div class="group">
+            <label>
+                Address
+                <input type="text" class="long" placeholder="Address" formControlName="address" />
+            </label><label>
+                Postcode
+                <input type="text" placeholder="Postcode" formControlName="postCode" />
+            </label>
+        </div>
+        <div class="group">
+            <label>
+                Mobile Phone
+                <input type="text" placeholder="Mobile No" formControlName="phoneMobile" />
+            </label><label>
+                Home Phone
+                <input type="text" placeholder="Home Phone" formControlName="phoneHome" />
+            </label><label>
+                Work Phone
+                <input type="text" placeholder="Work Phone" formControlName="phoneWork" />
+            </label><label>
+                Email Address
+                <input type="text" placeholder="Email Address" formControlName="email" />        
+            </label>
+        </div>
+        <div class="group">
+            <label>
+                FAC Number
+                <input type="text" placeholder="FAC Number" formControlName="facNumber" />
+            </label><label>
+                Key Holder
+                <input type="checkbox" placeholder="Key Holder" formControlName="keyHolder" />
+            </label>
+        </div>
+        <div class="group">
+            <label>
+                Notes
+                <input type="text" class="long" placeholder="Notes" formControlName="notes" />
+            </label>
+        </div>
+        <div class=group formArrayName="formRifles">
+            <div style="float:left; padding: 10px;">
+                <label>Rifles</label>
+            </div>
+            <button type="button" (click)="addRifle()">Add Rifle</button>
+            <table>
+                <tr>
+                    <th><label>Serial No</label></th><th><label>Make</label></th><th><label>Model</label></th><th><label>Calibre</label></th>
+                </tr>
+                <tr *ngFor="let r of formRifles.controls; let i=index" [formGroupName]="i" >
+                    <td><label><input type="text" placeholder="Serial No" formControlName="serialNo" /></label></td>
+                    <td><label><input type="text" placeholder="Make" formControlName="make" /></label></td>
+                    <td><label><input type="text" placeholder="Model" formControlName="model" /></label></td>
+                    <td><label><input type="text" class="number" placeholder="Calibre" formControlName="calibre" /></label></td>
+                    <td><button type="button" (click)="removeRifle(i)" >Remove</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="group">
+            <button type="submit" [disabled]="!memberForm.valid" >Save</button>
+            <button type="button" (click)="cancel()" >Cancel</button>
+        </div>
+    </form>
+</div>

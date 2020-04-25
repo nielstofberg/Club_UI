@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+div.page {
+    padding: 0 auto;
+}
+
+h1 {
+    font-size: 2rem;
+    padding: 0;
+    margin: .3rem;
+}
+
+h2 {
+    font-size: 1.1rem;
+    padding: 0;
+    margin: .3rem;
+}
+
+div.group {
+    padding: 10px;
+    margin: 2px;
+    border-radius: 10px;
+    border: 2px solid rgb(132, 175, 255);
+    background-color: rgb(184, 237, 255);
+}
+
+table.datagrid {
+    /*border-collapse: collapse;*/
+    border-spacing: 0px;
+    border-radius: .5rem;
+    padding: .5em;
+    margin: .5em;
+    background-color: rgb(181, 192, 212);    
+}
+
+table.datagrid td, table.datagrid th{
+    border: 0px solid black;
+}
+
+thead.datagrid {
+    border-radius: .2rem;
+    background-color: rgb(147, 150, 155);
+}
+
+thead.datagrid th{
+    padding: .2rem 1rem;
+}
+
+tbody.datagrid {
+    background-color: rgb(181, 192, 212);
+}
+
+tbody.datagrid tr:nth-child(odd){
+    background-color: rgb(161, 171, 189);
+}
+
+tbody.datagrid td {
+    padding: 0 1em;
+}
+
+button {
+    vertical-align: top;
+    font-family: Arial;
+    background-color: #eee;
+    height: 2em;
+    border: none;
+    padding: 5px 10px;
+    margin: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #cfd8dc;
+  }
+  
+  button:disabled {
+    background-color: #eee;
+    color: #ccc;
+    cursor: auto;
+  }

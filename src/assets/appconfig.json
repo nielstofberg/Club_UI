@@ -1,0 +1,4 @@
+{
+    "apiBaseUrl": "http://pi4-a:1234/api/",
+    "fpApiBaseUrl": "http://pi4-a:1235/api/"
+  }

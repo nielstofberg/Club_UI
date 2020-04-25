@@ -1,0 +1,20 @@
+#buttonbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+button.login {
+    border: 2px solid rgb(143, 205, 255);
+    font-size: 3rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    Margin: 5rem;
+    padding: 20px;
+    height: 100px;
+}
+
+button:focus {
+    outline-width: 0ch;
+}

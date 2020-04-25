@@ -1,0 +1,40 @@
+<div *ngIf="memberId==0" id="buttonbox" class="group" >
+    <button class="login" (click)="getUser()">
+        Press / Click to log in.
+    </button>
+</div>
+
+<div *ngIf="memberId>0" class="group" >
+    <h1>{{member.firstName}} {{member.surname}}</h1>
+    <form [formGroup]="attendanceform" (ngSubmit)="onFormSubmit()" >
+        <label>
+            Date:
+            {{entryDate | date:"EEEE d MMMM y HH:mm"}}
+        </label>
+        <br/>
+        <label>            
+            <input type="checkbox" (change)="seasonTicketChanged($event)" fornmControlName="seasonTicket" >
+            Season ticket
+        </label>
+        <br/>
+        <label>
+            Range Fee: <b>£ {{attendanceform.controls['payment'].value | number:"1.2-2"}}</b>
+        </label>
+        <br/>
+        <label>
+            Activity:
+            <span *ngFor="let act of activities">
+                <input type="radio" (change)="activityChanged($event, act)" formControlName="activityId" [value]="act.activityId" >  {{act.title}}
+            </span>
+        </label>
+        <br/>
+        <label>
+            <span *ngFor="let rifle of member.rifles">
+                <input type="radio" formControlName="rifleId" [value]="rifle.rifleId" >  {{rifle.make}} {{rifle.model}} ( {{rifle.serialNo}} ) <br/>
+            </span>
+        </label>
+        <br/>
+    <button type="submit" [disabled]="!attendanceform.valid" >Confirm</button>
+    </form>
+    <button type="button" (click)="cancel()">Cancel</button>
+</div>

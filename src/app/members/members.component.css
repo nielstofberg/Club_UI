@@ -1,0 +1,58 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0px;
+  }
+
+label {
+    vertical-align: top;
+    display: inline-block;
+    margin: 2px 0px 2px 10px;
+    color: #607D8B;
+    font-weight: bold;
+  }
+  
+  input, select{
+    display: block;
+    height: 2em;
+    font-size: 1em;
+    padding-left: .4em;
+  }
+
+  input.long {
+    width: 25em;
+  }
+
+  input.number {
+    width: 5em;
+  }
+  
+  button {
+    vertical-align: top;
+    font-family: Arial;
+    background-color: #eee;
+    height: 2em;
+    border: none;
+    padding: 5px 10px;
+    margin: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #cfd8dc;
+  }
+  
+  button:disabled {
+    background-color: #eee;
+    color: #ccc;
+    cursor: auto;
+  }
+  
+  div.group {
+    padding: 10px;
+    margin: 2px;
+    border-radius: 10px;
+    border: 2px solid rgb(132, 175, 255);
+    background-color: rgb(184, 237, 255);
+  }
