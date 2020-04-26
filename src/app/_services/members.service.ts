@@ -1,11 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Member} from '../models/member'
-import { MemberType } from '../models/membertype'
-import { Rifle } from '../models/rifle'
+import { Member} from '../_models/member'
+import { MemberType } from '../_models/membertype'
+import { Rifle } from '../_models/rifle'
 import { AppConfigService } from './appconfig.service';
-import { Activity } from '../models/activity';
+import { Activity } from '../_models/activity';
 
 @Injectable({
   providedIn: 'root'

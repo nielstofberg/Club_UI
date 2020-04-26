@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Member } from '../models/member';
-import { MembersService } from '../services/members.service';
-import { Attendance } from '../models/attendance';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Activity } from '../models/activity';
-import { FingerprintService } from '../services/fingerprint.service';
+import { Attendance, Activity, Member } from '../_models';
+import { MembersService, FingerprintService } from '../_services';
 
 @Component({
   selector: 'app-member-log',

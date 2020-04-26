@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
-import { MembersService} from '../services/members.service'
-import {Member} from '../models/member'
-import { MemberType } from '../models/membertype';
-import { Rifle } from '../models/rifle';
+import { MembersService} from '../_services'
+import {Member, MemberType, Rifle} from '../_models'
 import { identifierModuleUrl } from '@angular/compiler';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 

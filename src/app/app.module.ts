@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MembersComponent } from './members/members.component';
 import { MemberLogComponent } from './member-log/member-log.component';
-import { AppConfigService } from './services/appconfig.service'
+import { AppConfigService } from './_services'
 
 @NgModule({
   declarations: [
