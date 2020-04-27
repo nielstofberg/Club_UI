@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { MembersComponent } from './members/members.component';
 import { MemberLogComponent } from './member-log/member-log.component';
 import { AppConfigService } from './_services'
+import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
 
 @NgModule({
   declarations: [
@@ -29,18 +30,18 @@ import { AppConfigService } from './_services'
       { path: 'members', component: MembersComponent },
       ])
     ],
-  providers: [ {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [AppConfigService],
-      useFactory: (appConfigService: AppConfigService) => {
-        return () => {
+  providers: [ 
+    { 
+      provide: APP_INITIALIZER, multi: true, deps: [AppConfigService], 
+        useFactory: (appConfigService: AppConfigService) => {
+          return () => {
           //Make sure to return a promise!
-          return appConfigService.loadAppConfig();
-        };
-      }
-
-    }
+            return appConfigService.loadAppConfig();
+          };
+        }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
