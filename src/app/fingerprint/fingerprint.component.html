@@ -1,0 +1,34 @@
+<div *ngIf="step==0">
+    <table  class=datagrid>
+        <thead class=datagrid>
+            <tr>
+                <th>Member<br/>Number</th><th>Name</th><th>Surname</th><th>Email</th><th>Mobile</th><th>DOB</th><th></th>
+            </tr>  
+        </thead>
+        <tbody class="datagrid">
+            <tr *ngFor="let member of members" class="datagrid">
+                <td>{{member.memberNo}}</td>
+                <td>{{member.firstName}}</td>
+                <td>{{member.surname}}</td>
+                <td>{{member.email}}</td>
+                <td>{{member.phoneMobile}}</td>
+                <td>{{member.birthday | date:'yyyy-MM-dd'}}</td>
+                <td><button (click)="registerStep1(member)" >Select</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="step==1">
+    <h3>Place Finger on Scanner</h3>
+</div>
+<div *ngIf="step==2">
+    <h3>Remove finger and press 'Next'</h3>
+    <button (click)="registerStep2()" >Next</button>
+</div>
+<div *ngIf="step==3">
+    <h3>Place Finger on Scanner again.</h3>
+</div>
+<div *ngIf="step==4">
+    <h3>Fingerprint successfully registered</h3>
+    <button (click)="complete()" >OK</button>
+</div>  

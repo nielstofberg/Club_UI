@@ -11,6 +11,7 @@ import { MembersComponent } from './members/members.component';
 import { MemberLogComponent } from './member-log/member-log.component';
 import { AppConfigService } from './_services'
 import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
+import { FingerprintComponent } from './fingerprint/fingerprint.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
     HomeComponent,
     MembersComponent,
     MemberLogComponent,
+    FingerprintComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
     RouterModule.forRoot([
       { path: '', component: MemberLogComponent, pathMatch: 'full' },
       { path: 'members', component: MembersComponent },
+      { path: 'fingerprint', component: FingerprintComponent },
       ])
     ],
   providers: [ 

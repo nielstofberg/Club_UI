@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://pi4-a:1234/api/'
+  apiEndpoint: 'http://rclogger:1234/api/'
 };
 
 /*

@@ -39,19 +39,21 @@ export class MemberLogComponent implements OnInit {
       if (!response['matched']) return;
 
       var sid = response['id'];
-      this.ms.getMember(sid).subscribe(r => {
-        this.member = r;
-        this.attendanceform = this.fb.group({
-          attendanceId: [0, Validators.required],
-          memberId: [this.memberId, Validators.required],
-          date: [new Date().toLocaleString(), Validators.required],
-          seasonTicket: [false, Validators.required],
-          payment: [this.member.memberType.rangeFee, Validators.required],
-          activityId: [null, Validators.required],
-          rifleId: [null],
-        });
-        this.memberId = sid;
-        this.entryDate = Date.now();
+      this.ms.getByMemberNumber(sid).subscribe(r => {
+        if (r.length>0) {
+          this.member = r[0];
+          this.attendanceform = this.fb.group({
+            attendanceId: [0, Validators.required],
+            memberId: [this.memberId, Validators.required],
+            date: [new Date().toLocaleString(), Validators.required],
+            seasonTicket: [false, Validators.required],
+            payment: [this.member.memberType.rangeFee, Validators.required],
+            activityId: [null, Validators.required],
+            rifleId: [null],
+          });
+          this.memberId = sid;
+          this.entryDate = Date.now();
+        }
       });
     });
   }

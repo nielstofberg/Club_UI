@@ -16,4 +16,13 @@ export class FingerprintService {
     ReadFp() : Observable<object[]> {
         return this.http.get<object[]>(this.baseUrl + 'fingerprint');
     }
+
+    EnrollStep1() : Observable<boolean> {
+        return this.http.post<boolean>(this.baseUrl + 'fingerprint?step=1', null);
+    }
+
+    EnrollStep2(id : number) : Observable<boolean> {
+        return this.http.post<boolean>(this.baseUrl + 'fingerprint?step=2&id='+id,null);
+    }
+
 }
