@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
     constructor(private http: HttpClient) { }
   
     loadAppConfig() {
-      return this.http.get('/assets/appconfig.json')
+      return this.http.get('./assets/appconfig.json')
         .toPromise()
         .then(data => {
           this.appConfig = data;

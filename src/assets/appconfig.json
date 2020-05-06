@@ -1,4 +1,4 @@
 {
-    "apiBaseUrl": "https://localhost:44373/api/",
+    "apiBaseUrl": "http://rclogger:1234/api/",
     "fpApiBaseUrl": "http://rclogger:1235/api/"
   }

@@ -1,40 +1,54 @@
+<div style="position:absolute; top:0;right:0; margin:20px" >
+    <input type="button" (click)="goToAdmin()" value="Admin" />
+</div>
 <div *ngIf="memberId==0" id="buttonbox" class="group" >
+
     <button class="login" (click)="getUser()">
-        Press / Click to log in.
+        Sign in
     </button>
 </div>
 
-<div *ngIf="memberId>0" class="group" >
-    <h1>{{member.firstName}} {{member.surname}}</h1>
+<div *ngIf="(memberId > 0)" class="signinPage">
     <form [formGroup]="attendanceform" (ngSubmit)="onFormSubmit()" >
-        <label>
-            Date:
-            {{entryDate | date:"EEEE d MMMM y HH:mm"}}
-        </label>
-        <br/>
-        <label>            
-            <input type="checkbox" (change)="seasonTicketChanged($event)" fornmControlName="seasonTicket" >
-            Season ticket
-        </label>
-        <br/>
-        <label>
-            Range Fee: <b>£ {{attendanceform.controls['payment'].value | number:"1.2-2"}}</b>
-        </label>
-        <br/>
-        <label>
-            Activity:
-            <span *ngFor="let act of activities">
-                <input type="radio" (change)="activityChanged($event, act)" formControlName="activityId" [value]="act.activityId" >  {{act.title}}
-            </span>
-        </label>
-        <br/>
-        <label>
-            <span *ngFor="let rifle of member.rifles">
-                <input type="radio" formControlName="rifleId" [value]="rifle.rifleId" >  {{rifle.make}} {{rifle.model}} ( {{rifle.serialNo}} ) <br/>
-            </span>
-        </label>
-        <br/>
-    <button type="submit" [disabled]="!attendanceform.valid" >Confirm</button>
+        <div class="group" style="padding: 5px 10px;">
+            <div class="name">
+            <span>{{member.firstName}} {{member.surname}}</span>
+            <span class="dob">DOB {{member.birthday | date:"yyyy-MM-dd"}}</span>
+            </div>
+            <div class="formlabel">
+                Entry Date: {{entryDate | date:"EEEE d MMMM y HH:mm"}}
+            </div>
+            <div class="optionBox">
+                <div>Activity:</div>
+                <label *ngFor="let act of activities" class="container">
+                    <input type="radio" (change)="activityChanged($event, act)" formControlName="activityId" [value]="act.activityId" >
+                    <span class="checkmark">
+                        {{act.title}}
+                    </span>
+                </label>
+            </div>
+            <div class="optionBox">
+                <div>I will be shooting with:</div>
+                <label *ngFor="let rifle of member.rifles" class="container">
+                    <input type="radio" formControlName="rifleId" [value]="rifle.rifleId" >
+                    <span class="checkmark">
+                        {{rifle.make}} {{rifle.model}} ( {{rifle.serialNo}} )
+                    </span>
+                </label>
+            </div>
+            <label class="container">
+                <input type="checkbox" (change)="seasonTicketChanged($event)" fornmControlName="seasonTicket" >
+                <span class="checkmark">
+                    I have a season ticket
+                </span>                
+            </label>
+            <div class="formlabel" style="display: inline;">
+                Range Fee: <b>£ {{attendanceform.controls['payment'].value | number:"1.2-2"}}</b>
+            </div>
+        </div>
+        <div class="group">
+            <button type="submit" [disabled]="!attendanceform.valid" class="form" >Confirm</button>
+            <button type="button" (click)="cancel()" class="form" >Cancel</button>
+        </div>
     </form>
-    <button type="button" (click)="cancel()">Cancel</button>
 </div>

@@ -1,4 +1,8 @@
-<div *ngIf="step==0">
+<div *ngIf="step==0" class="group" >
+    <div style="float:left; padding: 10px;">
+        <label>Members</label>
+    </div>
+    <button (click)=gotoHome()>Home</button>
     <table  class=datagrid>
         <thead class=datagrid>
             <tr>

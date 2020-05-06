@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FingerprintService, MembersService } from '../_services';
 import { Member } from '../_models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fingerprint',
@@ -12,7 +13,9 @@ export class FingerprintComponent implements OnInit {
   members: Member[];
   step = 0;
 
-  constructor(private fpService:FingerprintService, private memService : MembersService) { }
+  constructor(private fpService:FingerprintService, 
+    private memService : MembersService,
+    private _router: Router) { }
 
   ngOnInit(): void {
     this.memService.getMembers().subscribe(mems => {
@@ -20,6 +23,10 @@ export class FingerprintComponent implements OnInit {
     });
   }
   
+  gotoHome() {
+    this._router.navigate(['/']);
+  }
+
   registerStep1(mem: Member) {
     this.member = mem;
     this.step = 1;

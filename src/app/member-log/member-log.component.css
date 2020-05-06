@@ -18,3 +18,83 @@ button.login {
 button:focus {
     outline-width: 0ch;
 }
+
+.signinPage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #444;
+}
+
+button.form {
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    margin: 5px 0px 5px 10px;
+}
+
+.name {
+    color: #222;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 3px 10px 10px 10px;
+}
+
+.dob {
+    color: #aaa;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 0 10px;
+}
+
+.formlabel {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0 0 0 10px;
+}
+
+.optionBox {
+    border: 1px solid grey;
+    padding: 5px;
+    margin: 2px 0;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* The container */
+.container {
+    font-size: 18px;
+    font-weight: normal;
+}
+  
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+  
+/* Create a custom checkbox */
+.checkmark {
+    display: inline-block;
+    border: 2px solid rgb(132, 175, 255);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    width: fit-content;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+  
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+  
