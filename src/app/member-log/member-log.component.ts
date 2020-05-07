@@ -88,7 +88,10 @@ export class MemberLogComponent implements OnInit {
     this.ms.getByMemberNumber(num).subscribe(r => {
       if (r.length>0) {
         this.member = r[0];
-
+        if (this.member.lastSignIn == null)
+        {
+          this.member.lastSignIn = new Date(0);
+        }
         var ld:Date = new Date(this.member.lastSignIn.toLocaleString());
         console.info('member.lastSignIn: ' + this.member.lastSignIn);
         var now = new Date();
