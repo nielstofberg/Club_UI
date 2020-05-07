@@ -19,12 +19,10 @@ import { HttpClient } from '@angular/common/http';
     }
   
     // This is an example property ... you can make it however you want.
-    get apiBaseUrl() {
-  
+    get apiBaseUrl() {  
       if (!this.appConfig) {
         throw Error('Config file not loaded!');
       }
-  
       return this.appConfig.apiBaseUrl;
     }
 
@@ -32,7 +30,13 @@ import { HttpClient } from '@angular/common/http';
       if (!this.appConfig) {
         throw Error('Config file not loaded!');
       }
-      
       return this.appConfig.fpApiBaseUrl;
+    }
+
+    get autoLogout() {
+      if (!this.appConfig) {
+        return 12;
+      }
+      return this.appConfig.autoLogout;
     }
   }

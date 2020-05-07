@@ -23,4 +23,6 @@ export interface Member {
     memberTypeId: number;
     memberType: MemberType;
     rifles: Rifle[];
+    lastSignIn: Date;
+    administrator: boolean;
 }

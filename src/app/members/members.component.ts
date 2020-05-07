@@ -38,6 +38,7 @@ export class MembersComponent implements OnInit {
     picture: [''],
     keyHolder: [false],
     facNumber: [''],
+    administrator: [false],
     notes: [''],
     memberTypeId: [null, Validators.required],
     formRifles: this.fb.array([ ])
@@ -47,10 +48,19 @@ export class MembersComponent implements OnInit {
     return this.memberForm.get('formRifles') as FormArray;
   }
 
+  /**
+   * Component constructor
+   * @param memberService
+   * @param fb 
+   */
   constructor(private memberService:  MembersService, 
     private fb: FormBuilder) { 
   }
 
+  /**
+   * Page ngOnInit function
+   * Populates the MemberTypes
+   */
   ngOnInit(): void {
     this.refreshMembers();
     this.memberService.getMemberTypes().subscribe(result => {
@@ -58,11 +68,15 @@ export class MembersComponent implements OnInit {
     });
   }
 
+  /**
+   * Populates the members list from the MembersService
+   */
   refreshMembers() : void {
     this.memberService.getMembers().subscribe(result => {
       this.members = result;
     });
   }
+
 
   newMember() {
     this.selectedMemberId = 0;
@@ -125,6 +139,9 @@ export class MembersComponent implements OnInit {
     }
   }
 
+  /**
+   * Runs when Members Form is submitted
+   */
   onMemberFormSubmit() {
     if (this.memberForm.valid) {
       if (this.selectedMemberId > 0 && this.memberForm.dirty)
