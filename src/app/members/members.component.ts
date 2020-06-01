@@ -14,6 +14,7 @@ export class MembersComponent implements OnInit {
   members: Member[];
   memberTypes: MemberType[];
   selectedMemberId: number = -1;
+  lastLogin: Date;
 
   formdefaults = {
     memberId: 0,
@@ -23,6 +24,7 @@ export class MembersComponent implements OnInit {
   memberForm = this.fb.group({
     memberId: [0, Validators.required],
     memberNo: ['', Validators.required],
+    joinDate: ['', Validators.required],
     pin: ['', Validators.required],
     firstName: ['', Validators.required],
     middleName: [''],
@@ -87,9 +89,14 @@ export class MembersComponent implements OnInit {
 
   memberSelected(sm : Member) {
     this.memberService.getMember(sm.memberId).subscribe(res => {
+      this.lastLogin = res.lastSignIn;
       var bd = res.birthday.toString().substr(0,10);
       this.selectedMemberId = res.memberId;
       this.memberForm.patchValue(res);
+      if (res.joinDate!=null) {
+        var jd = res.joinDate.toString().substr(0,10);
+        this.memberForm.get('joinDate').setValue(jd);
+      }
       this.memberForm.get('birthday').setValue(bd);
       this.memberForm.setControl('formRifles', this.setExistingRifles(res.rifles));
     });
@@ -147,6 +154,7 @@ export class MembersComponent implements OnInit {
       if (this.selectedMemberId > 0 && this.memberForm.dirty)
       {
         var mem : Member = this.memberForm.value;
+        mem.lastSignIn = this.lastLogin;
         this.memberService.updateMember(mem).subscribe(r => {
           this.formRifles.controls.forEach(element => {
             if (element.get('rifleId').value==0)
@@ -167,7 +175,7 @@ export class MembersComponent implements OnInit {
       }
       else if (this.selectedMemberId == 0)
       {
-        var mem : Member = this.memberForm.value;
+        var mem : Member = this.memberForm.value;        
         this.memberService.addMember(mem).subscribe(m => {
           this.formRifles.controls.forEach(element => {
             var rifle: Rifle = element.value;

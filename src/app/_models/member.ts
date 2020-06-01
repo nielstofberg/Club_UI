@@ -4,6 +4,7 @@ import { Rifle } from './rifle'
 export interface Member {
     memberId: number;
     memberNo: number;
+    joinDate: Date;
     pin: string;
     firstName: string;
     middleName: string;

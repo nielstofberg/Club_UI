@@ -45,6 +45,10 @@
                 </select>
             </label>
             <label>
+                Date Joined Club
+                <input type="date" placeholder="Join Date" formControlName="joinDate" />
+            </label>
+            <label>
                 Pin
                 <input type="password" class="number" placeholder="Pin" formControlName="pin" />
             </label>
@@ -126,13 +130,15 @@
             <button type="button" (click)="addRifle()">Add Rifle</button>
             <table>
                 <tr>
-                    <th><label>Serial No</label></th><th><label>Make</label></th><th><label>Model</label></th><th><label>Calibre</label></th>
+                    <th><label>Serial No</label></th><th><label>Make</label></th><th><label>Model</label></th>
+                    <th><label>Calibre</label></th><th><label>Club Rifle</label></th>
                 </tr>
                 <tr *ngFor="let r of formRifles.controls; let i=index" [formGroupName]="i" >
                     <td><label><input type="text" placeholder="Serial No" formControlName="serialNo" /></label></td>
                     <td><label><input type="text" placeholder="Make" formControlName="make" /></label></td>
                     <td><label><input type="text" placeholder="Model" formControlName="model" /></label></td>
                     <td><label><input type="text" class="number" placeholder="Calibre" formControlName="calibre" /></label></td>
+                    <td><label><input type="checkbox" formControlName="clubRifle" /></label></td>
                     <td><button type="button" (click)="removeRifle(i)" >Remove</button></td>
                 </tr>
             </table>
