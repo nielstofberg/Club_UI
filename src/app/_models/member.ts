@@ -1,10 +1,10 @@
-import { MemberType } from './membertype'
-import { Rifle } from './rifle'
+import {MemberType, Rifle, MemberLevel, Locker} from './index' 
 
 export interface Member {
     memberId: number;
     memberNo: number;
     joinDate: Date;
+    probEndDate: Date;
     pin: string;
     firstName: string;
     middleName: string;
@@ -20,10 +20,14 @@ export interface Member {
     picture: string; // uri of picture;
     keyholder: boolean;
     facNumber: string;
+    NsraNumber: string;
     notes: string;
+    memberLevelId: number;
+    memberLevel: MemberLevel;
     memberTypeId: number;
     memberType: MemberType;
     rifles: Rifle[];
+    lockers: Locker[];
     lastSignIn: Date;
     administrator: boolean;
 }

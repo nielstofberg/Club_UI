@@ -6,6 +6,7 @@ import { MemberType } from '../_models/membertype'
 import { Rifle } from '../_models/rifle'
 import { AppConfigService } from './appconfig.service';
 import { Activity } from '../_models/activity';
+import { MemberLevel } from '../_models';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,10 @@ export class MembersService {
 
   getMemberTypes() : Observable<MemberType[]> {
     return this.http.get<MemberType[]>(this.baseUrl + 'MemberTypes');
+  }
+  
+  getMemberLevels() : Observable<MemberLevel[]> {
+    return this.http.get<MemberLevel[]>(this.baseUrl + 'MemberLevels');
   }
 
   getRifles(memberId: number) : Observable<Rifle[]> {

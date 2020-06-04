@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
-import { MembersService} from '../_services'
-import {Member, MemberType, Rifle} from '../_models'
+import { MembersService, AttendanceService} from '../_services'
+import {Member, MemberType, Rifle, Attendance, Activity, MemberLevel} from '../_models'
 import { identifierModuleUrl } from '@angular/compiler';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
@@ -13,8 +13,13 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 export class MembersComponent implements OnInit {
   members: Member[];
   memberTypes: MemberType[];
+  memberLevels: MemberLevel[];
+  activities: Activity[];
   selectedMemberId: number = -1;
+  selectedMember: Member;
   lastLogin: Date;
+  memberDetail: boolean = false;
+  attendances: Attendance[];
 
   formdefaults = {
     memberId: 0,
@@ -25,6 +30,7 @@ export class MembersComponent implements OnInit {
     memberId: [0, Validators.required],
     memberNo: ['', Validators.required],
     joinDate: ['', Validators.required],
+    probEndDate: [''],
     pin: ['', Validators.required],
     firstName: ['', Validators.required],
     middleName: [''],
@@ -40,9 +46,11 @@ export class MembersComponent implements OnInit {
     picture: [''],
     keyHolder: [false],
     facNumber: [''],
+    nsraNumber: [''],
     administrator: [false],
     notes: [''],
     memberTypeId: [null, Validators.required],
+    memberLevelId: [null, Validators.required],
     formRifles: this.fb.array([ ])
   });
 
@@ -56,6 +64,7 @@ export class MembersComponent implements OnInit {
    * @param fb 
    */
   constructor(private memberService:  MembersService, 
+    private as: AttendanceService,
     private fb: FormBuilder) { 
   }
 
@@ -68,6 +77,12 @@ export class MembersComponent implements OnInit {
     this.memberService.getMemberTypes().subscribe(result => {
       this.memberTypes = result;
     });
+    this.memberService.getMemberLevels().subscribe(result => {
+      this.memberLevels = result;
+    });
+    this.memberService.getActivities().subscribe(res => {
+      this.activities = res;
+    });
   }
 
   /**
@@ -79,9 +94,21 @@ export class MembersComponent implements OnInit {
     });
   }
 
+  showActivity(sm : Member) {
+    this.memberService.getMember(sm.memberId).subscribe(res => {
+      this.selectedMemberId = res.memberId;
+      this.memberDetail = false;
+      this.selectedMember = sm;
+    });
+
+    this.as.getByMember(sm.memberId).subscribe(res=> {
+      this.attendances = res;
+    });
+  }
 
   newMember() {
     this.selectedMemberId = 0;
+    this.memberDetail = true;
     this.formRifles.clear();
     this.memberForm.reset();
     this.memberForm.patchValue(this.formdefaults);
@@ -92,11 +119,17 @@ export class MembersComponent implements OnInit {
       this.lastLogin = res.lastSignIn;
       var bd = res.birthday.toString().substr(0,10);
       this.selectedMemberId = res.memberId;
+      this.memberDetail = true;
       this.memberForm.patchValue(res);
       if (res.joinDate!=null) {
         var jd = res.joinDate.toString().substr(0,10);
         this.memberForm.get('joinDate').setValue(jd);
       }
+      if (res.probEndDate!=null) {
+        var ped = res.probEndDate.toString().substr(0,10);
+        this.memberForm.get('probEndDate').setValue(ped);
+      }
+      
       this.memberForm.get('birthday').setValue(bd);
       this.memberForm.setControl('formRifles', this.setExistingRifles(res.rifles));
     });
@@ -188,11 +221,13 @@ export class MembersComponent implements OnInit {
         });
       }
       this.selectedMemberId = -1;
+      this.memberDetail = false;
     }
   }
 
   cancel() {
     this.selectedMemberId = -1;
+    this.memberDetail = false;
     this.formRifles.clear();
     this.memberForm.reset();
   }

@@ -9,7 +9,8 @@
     <table  class=datagrid>
         <thead class=datagrid>
             <tr>
-                <th>Member<br/>Number</th><th>Membership</th><th>Name</th><th>Surname</th><th>Email</th><th>Mobile</th><th>Postcode</th><th>DOB</th><th></th>
+                <th>Member<br/>Number</th><th>Membership</th><th>Name</th><th>Surname</th>
+                <th>Email</th><th>Mobile</th><th>Postcode</th><th>DOB</th><th></th><th></th>
             </tr>  
         </thead>
         <tbody class="datagrid">
@@ -22,13 +23,32 @@
                 <td>{{member.phoneMobile}}</td>
                 <td>{{member.postCode}}</td>
                 <td>{{member.birthday | date:'yyyy-MM-dd'}}</td>
-                <td><button (click)="memberSelected(member)" >Select</button></td>
+                <td><button (click)="memberSelected(member)" >Edit</button></td>
+                <td><button (click)="showActivity(member)" >Activity</button></td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div *ngIf="selectedMemberId >= 0">
+<div *ngIf="selectedMemberId >= 0 && !memberDetail">
+    <h3>Activity</h3>
+    <div class="group" >
+        <h3>[{{selectedMember.memberNo}}] {{selectedMember.firstName}} {{selectedMember.surname}}</h3>
+        <button type="button" (click)="cancel()" >Back</button>
+        <table>
+            <tr><th>Date</th><th>Activity</th><th>Rifle SN</th><th>Season<br/>Ticket</th><th>Payment</th></tr>
+            <tr *ngFor="let attendance of attendances">
+                <td>{{attendance.date | date: 'yyyy-MM-dd, HH:mm'}}</td>
+                <td>{{attendance.activity?.title}}</td>
+                <td>{{attendance.rifle?.serialNo}}</td>
+                <td align="center"><input type="checkbox" [(ngModel)]="attendance.seasonTicket" onclick="return false;" /></td>
+                <td align="right">£{{attendance.payment | number: '1.2-2'}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="selectedMemberId >= 0 && memberDetail">
     <form [formGroup]="memberForm" (ngSubmit)="onMemberFormSubmit()">
         <div class="group">
             <label>
@@ -45,8 +65,18 @@
                 </select>
             </label>
             <label>
+                Member Level
+                <select placeholder="Select" formControlName="memberLevelId" >
+                    <option *ngFor="let lt of memberLevels" value="{{lt.memberLevelId}}" >{{lt.title}}</option>
+                </select>
+            </label>
+            <label>
                 Date Joined Club
                 <input type="date" placeholder="Join Date" formControlName="joinDate" />
+            </label>
+            <label>
+                Date Probation Ended
+                <input type="date" placeholder="Join Date" formControlName="probEndDate" />
             </label>
             <label>
                 Pin
@@ -109,6 +139,9 @@
             <label>
                 FAC Number
                 <input type="text" placeholder="FAC Number" formControlName="facNumber" />
+            </label><label>
+                NSRA Number
+                <input type="text" placeholder="NSRA Number" formControlName="nsraNumber" />
             </label><label>
                 Key Holder
                 <input type="checkbox" placeholder="Key Holder" formControlName="keyHolder" />
